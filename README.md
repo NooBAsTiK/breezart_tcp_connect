@@ -77,4 +77,17 @@ python3 /config/my_home/python_scripts/breezart_vent.py speed 3
 python3 /config/my_home/python_scripts/breezart_vent.py temperature 15
 ```
 В папке my_home лежат yaml примеры файлов для подключения к умному дому Home Assistant
+В файле configuration.yaml производиться импорт папкок
+```yaml
+# Folders
+automation: !include_dir_merge_list my_home/automations/
+sensor: !include_dir_merge_list my_home/sensors/
+switch: !include_dir_merge_list my_home/switches/
+command_line: !include_dir_merge_list my_home/command_line/
+input_select: !include_dir_merge_named my_home/input_selects/
+input_number: !include_dir_merge_named my_home/input_number/
+shell_command: !include_dir_merge_named my_home/shell_command/
+timer: !include_dir_merge_named my_home/timers/
+
+```
 ![пример](screen/breezart_screen_ha.jpg)
