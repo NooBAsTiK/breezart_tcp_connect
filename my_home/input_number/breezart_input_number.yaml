@@ -1,0 +1,13 @@
+breezart_fan_speed_number:
+  name: Скорость вентилятора
+  min: 1
+  max: 10
+  step: 1
+  mode: slider
+
+breezart_temperature_number:
+  name: Температура
+  min: 5
+  max: 45
+  step: 1
+  mode: slider

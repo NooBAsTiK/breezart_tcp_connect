@@ -1,0 +1,66 @@
+- sensor:
+    name: "breezart_power_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.unit_state_str }}"
+    scan_interval: 10
+
+- sensor:
+    name: "breezart_fan_speed_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.fan_speed }}"
+    scan_interval: 10
+
+- sensor:
+    name: "breezart_temp_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py sensors"
+    value_template: "{{ value_json.t_inf }}"
+    unit_of_measurement: "°C"
+    scan_interval: 10
+
+- sensor:
+    name: "breezart_filter_dust_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.filter_dust }}"
+    unit_of_measurement: "%"
+    scan_interval: 10
+
+- sensor:
+    name: "breezart_power_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py sensors"
+    value_template: "{{ value_json.pwr }}"
+    unit_of_measurement: "кВт"
+    scan_interval: 10
+
+- sensor:
+    name: "breezart_temperature_status"
+    command: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.target_temp }}"
+    scan_interval: 10
+
+- switch:
+    name: "breezart_power"
+    command_on: "python3 /config/my_home/python_scripts/breezart_vent.py power true"
+    command_off: "python3 /config/my_home/python_scripts/breezart_vent.py power false"
+    command_state: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.pwr_btn_state }}"
+
+- switch:
+    name: "breezart_comfort"
+    command_on: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature \"\" \"\" 1 \"\""
+    command_off: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature \"\" \"\" 2 \"\""
+    command_state: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.func_comfort }}"
+
+- switch:
+    name: "breezart_restart"
+    command_on: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature \"\" \"\" \"\" 1 "
+    command_off: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature \"\" \"\" \"\" 2 "
+    command_state: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.func_restart }}"
+
+- switch:
+    name: "breezart_mode"
+    command_on: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature 1 \"\" \"\" \"\""
+    command_off: "python3 /config/my_home/python_scripts/breezart_vent.py set_feature 3 \"\" \"\" \"\""
+    command_state: "python3 /config/my_home/python_scripts/breezart_vent.py status"
+    value_template: "{{ value_json.mode_set == 2 }}"

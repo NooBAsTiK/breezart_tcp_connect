@@ -1,0 +1,39 @@
+- alias: "Breezart  sync input_number with fan speed sensor"
+  trigger:
+    - platform: state
+      entity_id: sensor.breezart_fan_speed_status
+  action:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.breezart_fan_speed_number
+      data:
+        value: "{{ states('sensor.breezart_fan_speed_status') | int }}"
+
+- alias: "Breezart set fan speed from input_number"
+  trigger:
+    - platform: state
+      entity_id: input_number.breezart_fan_speed_number
+  action:
+    - service: shell_command.set_breezart_fan_speed
+      data:
+        speed: "{{ states('input_number.breezart_fan_speed_number') | int }}"
+
+- alias: "Breezart sync input_number with temperature sensor"
+  trigger:
+    - platform: state
+      entity_id: sensor.breezart_temperature_status
+  action:
+    - service: input_number.set_value
+      target:
+        entity_id: input_number.breezart_temperature_number
+      data:
+        value: "{{ states('sensor.breezart_temperature_status') | int }}"
+
+- alias: "Breezart set temperature from input_number"
+  trigger:
+    - platform: state
+      entity_id: input_number.breezart_temperature_number
+  action:
+    - service: shell_command.set_breezart_temperature
+      data:
+        temperature: "{{ states('input_number.breezart_temperature_number') | int }}"
